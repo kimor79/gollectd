@@ -200,12 +200,12 @@ func Packets(b []byte, types Types) (*[]Packet, error) {
 			packet.Values = make([]Value, valueCount, valueCount)
 			var packetValue Value
 
-			err = binary.Read(partBuffer, binary.BigEndian, &valueTypes)
-			if err != nil {
-				return nil, err
-			}
-
 			for i, t := range valueTypes {
+				err = binary.Read(partBuffer, binary.BigEndian, &t)
+				if err != nil {
+					return nil, err
+				}
+
 				packetValue.Type = t
 
 				if typeName, ok := ValueTypeValues[t]; ok {
