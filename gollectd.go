@@ -282,6 +282,7 @@ func TypesDB(b []byte) (Types, error) {
 	lines := strings.Split(content, "\n")
 
 	for i, line := range lines {
+		line = strings.TrimSpace(line)
 		// Skip empty & comment lines
 		if line == "" || line[0] == '#' {
 			continue

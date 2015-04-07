@@ -129,6 +129,23 @@ func TestTypesDB(t *testing.T) {
 	}
 }
 
+func TestTypesDB2(t *testing.T) {
+	tdb := []byte(`
+vs_memory		value:GAUGE:0:9223372036854775807
+vs_processes		value:GAUGE:0:65535
+vs_threads		value:GAUGE:0:65535
+# The following line has intentional whitespace
+    
+`)
+
+	typesdb, err := TypesDB(tdb)
+	if err != nil {
+		t.Error(err)
+	}
+
+	assert.Equal(t, 3, len(typesdb), "whitespace")
+}
+
 var typesDB = func() Types {
 	t, err := TypesDB(TypesDBData)
 	if err != nil {
