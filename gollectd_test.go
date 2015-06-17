@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 type FormatTests struct {
@@ -161,6 +162,17 @@ func TestPackets(t *testing.T) {
 			t.Errorf("i = %d: %s", i, err.Error())
 		}
 	}
+}
+
+func TestPacketsShort(t *testing.T) {
+	var err error
+
+	require.NotPanics(t, func() {
+		short := []byte("ab")
+		_, err = Packets(short, typesDB)
+	})
+
+	assert.NotNil(t, err)
 }
 
 var result *[]Packet
